@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.openquark.cal.eclipse.embedded.containing.ContainingEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            default="true"
+            extensions="java, aj"
+            icon="icons/cal_java.gif"
+            id="org.openquark.cal.eclipse.embedded.containing.containingEditor"
+            name="Java with embeddable CAL snippets">
+         <contentTypeBinding
+               contentTypeId="org.openquark.cal.eclipse.embedded.containing.containingEditor">
+         </contentTypeBinding>
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="org.openquark.cal.eclipse.embedded.insertEmbedded"
+            targetID="#CompilationUnitEditorContext">
+         <action
+               class="org.openquark.cal.eclipse.embedded.handlers.InsertExpressionEditorActionDelegate"
+               icon="icons/insert_embedded_expression.gif"
+               id="org.openquark.cal.eclipse.embedded.insertEmbeddedExpression.action"
+               label="Insert Embedded &amp;Expression"
+               menubarPath="additions"
+               tooltip="Insert an embedded CAL expression editor into the currently active Java editor">
+         </action>
+         <action
+               class="org.openquark.cal.eclipse.embedded.handlers.InsertModuleEditorActionDelegate"
+               icon="icons/insert_embedded_module.gif"
+               id="org.openquark.cal.eclipse.embedded.insertEmbeddedExpressionModule.action"
+               label="Insert Embedded &amp;Module"
+               menubarPath="additions"
+               tooltip="Insert an embedded CAL module editor into the currently active Java editor">
+         </action>
+      </viewerContribution>
+   </extension>
+   <extension
+         point="org.eclipse.jdt.core.classpathVariableInitializer">
+      <classpathVariableInitializer
+            class="org.openquark.cal.eclipse.embedded.EmbeddedClasspathVariableInitializer"
+            readOnly="false"
+            variable="EMBEDDED_CAL_RT_LIB">
+      </classpathVariableInitializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.openquark.cal.eclipse.embedded.contribution"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.openquark.cal.eclipse.embedded.handlers.AddEmbeddedCALRuntimeAction"
+               enablesFor="+"
+               id="org.openquark.cal.embedded.addToClasspathAction"
+               label="Add embedded CAL runtime to classpath"
+               menubarPath="org.openquark.cal.eclipse.ui.project.tools/group0">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.annotationTypes">
+      <type
+            markerSeverity="0"
+            name="org.openquark.cal.eclipse.embedded.expressionAnnotation">
+      </type>
+      <type
+            markerSeverity="0"
+            name="org.openquark.cal.eclipse.embedded.moduleAnnotation">
+      </type>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.markerAnnotationSpecification">
+      <specification
+            annotationType="org.openquark.cal.eclipse.embedded.expressionAnnotation"
+            label="Embedded CAL Expression Editor"
+            icon="icons/insert_embedded_expression.gif"
+            textPreferenceKey="embeddedExpression"
+            textPreferenceValue="false"
+            highlightPreferenceKey="embeddedExpressionHighlighting"
+            highlightPreferenceValue="false"
+            contributesToHeader="false"
+            overviewRulerPreferenceKey="embeddedExpressionInOverviewRuler"
+            overviewRulerPreferenceValue="true"
+            verticalRulerPreferenceKey="embeddedExpressionInVerticalRuler"
+            verticalRulerPreferenceValue="true"
+            colorPreferenceKey="embeddedExpressionColor"
+            colorPreferenceValue="255,255,255"
+            presentationLayer="3"
+            showInNextPrevDropdownToolbarActionKey="showEmbeddedExpressionInNextPrevDropdownToolbarAction"
+            showInNextPrevDropdownToolbarAction="true"
+            isGoToNextNavigationTargetKey="isEmbeddedExpressionGoToNextNavigationTarget"
+	        isGoToNextNavigationTarget="true"
+            isGoToPreviousNavigationTargetKey="isEmbeddedExpressionGoToPreviousNavigationTarget"
+	        isGoToPreviousNavigationTarget="true">
+	  </specification>
+      <specification
+            annotationType="org.openquark.cal.eclipse.embedded.moduleAnnotation"
+            label="Embedded CAL Module Editor"
+            icon="icons/insert_embedded_module.gif"
+            textPreferenceKey="embeddedModule"
+            textPreferenceValue="false"
+            highlightPreferenceKey="embeddedModuleHighlighting"
+            highlightPreferenceValue="false"
+            contributesToHeader="false"
+            overviewRulerPreferenceKey="embeddedModuleInOverviewRuler"
+            overviewRulerPreferenceValue="true"
+            verticalRulerPreferenceKey="embeddedModuleInVerticalRuler"
+            verticalRulerPreferenceValue="true"
+            colorPreferenceKey="embeddedModuleColor"
+            colorPreferenceValue="255,255,255"
+            presentationLayer="3"
+            showInNextPrevDropdownToolbarActionKey="showEmbeddedModuleInNextPrevDropdownToolbarAction"
+            showInNextPrevDropdownToolbarAction="true"
+            isGoToNextNavigationTargetKey="isEmbeddedModuleGoToNextNavigationTarget"
+	        isGoToNextNavigationTarget="true"
+            isGoToPreviousNavigationTargetKey="isEmbeddedModuleGoToPreviousNavigationTarget"
+	        isGoToPreviousNavigationTarget="true">
+	  </specification>
+   </extension>
+   <extension
+         id="org.openquark.cal.eclipse.embedded.editorMarker"
+         name="Embedded Editor Marker"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="false">
+      </persistent>
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
+   </extension>
+   <extension
+         id="org.openquark.cal.eclipse.embedded.epressionEditorMarker"
+         name="Embedded Expression Editor Marker"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="false">
+      </persistent>
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
+   </extension>
+   <extension
+         id="org.openquark.cal.eclipse.embedded.moduleEditorMarker"
+         name="Embedded Expression Editor Marker"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="false">
+      </persistent>
+      <super
+            type="org.openquark.cal.eclipse.embedded.editorMarker">
+      </super>
+   </extension>
+</plugin>
